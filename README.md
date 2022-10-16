@@ -1,8 +1,14 @@
 # Herbs React Hook Form
-
-Create validation rules based on herbs entity
-
 [![NPM](https://img.shields.io/npm/v/herbs-react-hook-form.svg)](https://www.npmjs.com/package/herbs-react-hook-form) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
+
+<p align="center">
+  Create validation rules based on herbs entity with gotu and suma
+</p>
+
+<p align="center">
+  <img alt="Form Validation" width="500px" src="doc/form-validation.png" />
+</p>
 
 ## Install
 
@@ -85,6 +91,44 @@ function App() {
       </div>
     </div>
   );
+}
+```
+
+## Custom Messages
+
+You can define a `suma2text` configuration to customize error messages
+
+```javascript
+{
+  useDefault: 'ts-ME',
+  languages: [
+    {
+      name: 'ts-ME',
+      definitions: {
+        types: [
+          { key: 'Number', translation: 'Numeric' },
+          { key: 'String', translation: 'Characters' }
+        ],
+        codes: [
+          { key: 'cantBeEmpty', translation: 'Wont should be empty' },
+          { key: 'wrongType', translation: 'Please the value correct is {0}' }
+        ]
+      }
+    },
+    {
+      name: 'en-US',
+      definitions: {
+        types: [
+          { key: 'Number', translation: 'Digit' },
+          { key: 'String', translation: 'Char Array' }
+        ],
+        codes: [
+          { key: 'cantBeEmpty', translation: 'Wont should be empty' },
+          { key: 'wrongType', translation: 'The value correct is {0}' }
+        ]
+      }
+    }
+  ]
 }
 ```
 
