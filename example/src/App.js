@@ -1,37 +1,18 @@
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import { entity, field } from "@herbsjs/gotu"
+import { User } from "./domain/user";
+import { herbsValidationResolver } from "herbs-react-hook-form"
 
 import logo from './logo.svg';
 import './App.css';
 
-const schema = yup.object({
-  firstName: yup.string().required(),
-  age: yup.number().positive().integer().required(),
-}).required();
-
-const User = entity('User', {
-  firstName: field(String, {
-    validation: {
-      presence: true
-    }
-  }),
-  age: field(String, {
-    validation: {
-      presence: true,
-      length: { minimum: 6 }
-    }
-  })
-})
-
 function App() {
 
   const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
+    mode: 'onChange',
+    resolver: herbsValidationResolver(User)
   });
-  const onSubmit = data => console.log(data);
 
+  const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <div className="App">
@@ -41,15 +22,19 @@ function App() {
         <form onSubmit={onSubmit}>
           <label>Name</label>
           <input {...register("name")} placeholder="(ex: John)" />
-          {errors.name && <p>{errors.name.message}</p>}
+          {errors?.name && <p>{errors?.name?.message}</p>}
+
+          <label>Age</label>
+          <input {...register("age")} placeholder="(+21)" />
+          {errors?.age && <p>{errors?.age?.message}</p>}
 
           <label>City</label>
           <input {...register("city")} placeholder="(ex: New York)" />
-          {errors.city && <p>{errors.city.message}</p>}
+          {errors?.city && <p>{errors?.city?.message}</p>}
 
           <label>Street</label>
           <input {...register("street")} />
-          {errors.street && <p>{errors.street.message}</p>}
+          {errors?.street && <p>{errors?.street?.message}</p>}
 
           <input type="submit" />
         </form>
